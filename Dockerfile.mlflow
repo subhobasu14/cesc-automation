@@ -1,0 +1,29 @@
+FROM python:3.11-slim
+
+WORKDIR /mlflow
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+RUN pip install \
+    mlflow \
+    psycopg2-binary \
+    boto3
+
+# Create mlflow user with same UID as airflow
+RUN useradd -u 50000 -g 0 mlflow
+
+# Create artifacts directory
+RUN mkdir -p /mlflow/artifacts && \
+    chown -R 50000:0 /mlflow && \
+    chmod -R 755 /mlflow
+
+# Expose port
+EXPOSE 5000
+
+# Start MLflow server
+CMD ["mlflow", "server", "--host", "0.0.0.0", "--port", "5000", "--backend-store-uri", "${BACKEND_STORE_URI}", "--default-artifact-root", "${ARTIFACT_ROOT}"]

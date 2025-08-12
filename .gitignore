@@ -1,0 +1,14 @@
+output/*
+!output/.gitkeep
+
+input/*.csv
+
+*.log
+logs/
+cescenv/*
+
+__pycache__/
+*.pyc
+
+mlflow/artifacts/
+postgres_db_volume/

@@ -1,0 +1,49 @@
+{
+  "combine": {
+    "output_directory": "/opt/airflow/output/",
+    "files": {
+      "D_1": {
+        "consumer": "/opt/airflow/input/2pi_consumer_master_17092024.txt",
+        "consumption": "/opt/airflow/input/meters_life_with_full_consumption-4.csv",
+        "custom_processing": true
+      },
+      "D_5": {
+        "consumer": "/opt/airflow/input/2pi_consumer_master_13122024.txt",
+        "consumption": "/opt/airflow/input/2pi_consumer_consumption_13122024.txt",
+        "report": "/opt/airflow/input/ANALYSIS TO 2PIRAD_13122024.xlsx"
+      },
+      "D_6": {
+        "consumer": "/opt/airflow/input/2pi_consumer_master_03012025.txt",
+        "consumption": "/opt/airflow/input/2pi_consumer_consumption_31122024.txt",
+        "report": "/opt/airflow/input/ANALYSIS_TO2PIRAD_24012025.xlsx"
+      },
+      "D_2": {
+        "consumer": "/opt/airflow/input/consumers_temp.txt",
+        "consumption": "/opt/airflow/input/consumptions_temp.txt"
+      }
+    }
+  },
+  "concatenate": {
+    "output_directory": "/opt/airflow/output/",
+    "priority": {
+      "D_1": 0,
+      "D_5": 1,
+      "D_6": 2,
+      "D_2": 3
+    },
+    "files": {
+      "D_1": "/opt/airflow/output/D_1_raw.csv",
+      "D_5": "/opt/airflow/output/D_5_raw.csv",
+      "D_6": "/opt/airflow/output/D_6_raw.csv",
+      "D_2": "/opt/airflow/output/D_2_raw.csv"
+    }
+  },
+  "prepare_model_input": {
+    "output_directory": "/opt/airflow/output/",
+    "files": "/opt/airflow/output/D_1_D_5_D_6_D_2_.csv"
+  },
+  "train_catboost_model": {
+    "output_directory": "/opt/airflow/output/",
+    "training_data": "/opt/airflow/output/D_1_D_5_D_6_D_2_model_input_data.csv"
+  }
+}

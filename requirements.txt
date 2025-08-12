@@ -1,0 +1,29 @@
+# Airflow dependencies
+psycopg2-binary
+celery
+redis
+cryptography
+
+# MLflow integration
+mlflow
+boto3
+
+# Data science libraries
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+python-multipart
+catboost
+regex
+pandas
+statsmodels
+
+# Additional utilities
+requests
+sqlalchemy
+python-dotenv
+openpyxl
+fastapi
+uvicorn
