@@ -1,6 +1,9 @@
 #!/bin/bash
 # Setup script for Airflow + MLflow Docker environment
-echo "Setting up Airflow + MLflow Docker environment..."
+echo "=== Setting up Airflow + MLflow Docker environment ==="
+
+echo "Installing Python dependencies..."
+pip install cryptography gdown
 # Create necessary directories
 echo "Creating directories..."
 # mkdir -p dags
@@ -19,8 +22,9 @@ echo "Setting permissions..."
 # sudo chown -R 50000:0 dags logs plugins mlflow output core data model
 chmod -R 777 dags logs plugins mlflow output core data model
 
-echo "Installing Python dependencies..."
-pip install cryptography
+echo "Downloading CSV files..."
+gdown --folder --id 1myumpSfXRMpXXYi1M8KI-XSwzV6_A-BP -O input/
+echo "✓ CSV files downloaded to input/ directory"
 # Copy sample files if they don't exist
 # if [ ! -f "dags/sample_dag.py" ]; then
 #     echo "# Place your DAG files here" > dags/README.md
